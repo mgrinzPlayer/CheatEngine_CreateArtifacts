@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <MiscellaneousOptions>
+    <Version Value="3"/>
+    <BuildLazarusOptions>
+      <Profiles Count="4">
+        <Profile0 Name="Normalne IDE">
+          <LCLPlatform Value="win32"/>
+          <IdeBuildMode Value="Build"/>
+        </Profile0>
+        <Profile1 Name="Debug IDE">
+          <LCLPlatform Value="win32"/>
+          <IdeBuildMode Value="Build"/>
+          <Options Count="1">
+            <Item1 Value="-gw -gl -godwarfsets -gh -gt -Co -Cr -Ci -Sa"/>
+          </Options>
+        </Profile1>
+        <Profile2 Name="Zoptymalizowane IDE">
+          <LCLPlatform Value="win32"/>
+          <IdeBuildMode Value="Clean All + Build"/>
+          <UpdateRevisionInc Value="False"/>
+          <Options Count="1">
+            <Item1 Value="-O3 -g- -Xs -CX -XX -OoREGVAR"/>
+          </Options>
+        </Profile2>
+        <Profile3 Name="Czyść + Buduj wszystko">
+          <LCLPlatform Value="win32"/>
+          <IdeBuildMode Value="Clean + Build"/>
+        </Profile3>
+      </Profiles>
+      <ProfileIndex Value="2"/>
+      <StaticAutoInstallPackages Count="26">
+        <Item1 Value="DateTimeCtrls"/>
+        <Item2 Value="SDFLaz"/>
+        <Item3 Value="pascalscript"/>
+        <Item4 Value="Printer4Lazarus"/>
+        <Item5 Value="LazDebuggerFpLldb"/>
+        <Item6 Value="SynEditDsgn"/>
+        <Item7 Value="LazControlDsgn"/>
+        <Item8 Value="DateTimeCtrlsDsgn"/>
+        <Item9 Value="RunTimeTypeInfoControls"/>
+        <Item10 Value="printers4lazide"/>
+        <Item11 Value="leakview"/>
+        <Item12 Value="MemDSLaz"/>
+        <Item13 Value="InstantFPCLaz"/>
+        <Item14 Value="ExternHelp"/>
+        <Item15 Value="TurboPowerIPro"/>
+        <Item16 Value="jcfidelazarus"/>
+        <Item17 Value="ChmHelpPkg"/>
+        <Item18 Value="fpcunitide"/>
+        <Item19 Value="ProjTemplates"/>
+        <Item20 Value="TAChartLazarusPkg"/>
+        <Item21 Value="ToDoListLaz"/>
+        <Item22 Value="SQLDBLaz"/>
+        <Item23 Value="DBFLaz"/>
+        <Item24 Value="EditorMacroScript"/>
+        <Item25 Value="TurboPowerIProDsgn"/>
+        <Item26 Value="OnlinePackageManager"/>
+      </StaticAutoInstallPackages>
+    </BuildLazarusOptions>
+  </MiscellaneousOptions>
+</CONFIG>

@@ -1,0 +1,125 @@
+name: testowanie_VisualStudio
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+
+    - uses: actions/checkout@master
+
+    - name: Lazarus Setup
+      run: |
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.007 -o lazarus2.0.10_FPC3.2.0_7z.007
+          7za x -y lazarus2.0.10_FPC3.2.0_7z.001
+          cd lazarus2.0.10
+          FPCandLAZARUSpaths.cmd
+      shell: cmd
+
+    - name: Update CE Source Files
+      run: |
+          svn checkout --force --non-interactive --trust-server-cert -r 4946 "https://github.com/cheat-engine/cheat-engine/trunk/" cheat-engine-master
+          svn up cheat-engine-master
+      shell: cmd
+
+    - name: Build 32bit
+      run: |
+          echo Compiling 32bit CE
+          set lazdir=%cd%\lazarus2.0.10
+          cd "cheat-engine-master\Cheat Engine"
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="Release 32-Bit" --os=win32 --cpu=i386   cheatengine.lpi
+      shell: cmd
+
+    - name: Build 64bit
+      run: |
+          echo Compiling 64bit CE
+          set lazdir=%cd%\lazarus2.0.10
+          cd "cheat-engine-master\Cheat Engine"
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="Release 64-Bit" --os=win64 --cpu=x86_64 cheatengine.lpi
+      shell: cmd
+
+    - name: VEH Debug
+      run: |
+          echo Compiling VEH Debug
+          set lazdir=%cd%\lazarus2.0.10
+          cd "cheat-engine-master\Cheat Engine\VEHDebug"
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="release 32" --os=win32 --cpu=i386   vehdebug.lpi
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="release 64" --os=win64 --cpu=x86_64 vehdebug.lpi
+      shell: cmd
+
+    - name: MonoDataCollector
+      run: |
+          set VSWHERE_bin="%programfiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+          set VSWHERE_Community=%VSWHERE_bin%    -latest -products * -requires Microsoft.VisualStudio.Product.Community    -property installationPath
+          set VSWHERE_Professional=%VSWHERE_bin% -latest -products * -requires Microsoft.VisualStudio.Product.Professional -property installationPath
+          set VSWHERE_Enterprise=%VSWHERE_bin%   -latest -products * -requires Microsoft.VisualStudio.Product.Enterprise   -property installationPath
+          for /f "usebackq tokens=*" %%A in (`%VSWHERE_Community%`)    do set VSPATH=%%A
+          for /f "usebackq tokens=*" %%A in (`%VSWHERE_Professional%`) do set VSPATH=%%A
+          for /f "usebackq tokens=*" %%A in (`%VSWHERE_Enterprise%`)   do set VSPATH=%%A
+          echo "%VSPATH%"
+          call "%VSPATH%\Common7\Tools\VsMSBuildCmd.bat"
+          cd "cheat-engine-master\Cheat Engine\MonoDataCollector"
+          MSBuild MonoDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v141_xp /p:Platform="Win32"
+          MSBuild MonoDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v141_xp /p:Platform="x64"
+      shell: cmd
+
+    - name: DotNetDataCollector
+      run: |
+          set VSWHERE_bin="%programfiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
+          set VSWHERE_Community=%VSWHERE_bin%    -latest -products * -requires Microsoft.VisualStudio.Product.Community    -property installationPath
+          set VSWHERE_Professional=%VSWHERE_bin% -latest -products * -requires Microsoft.VisualStudio.Product.Professional -property installationPath
+          set VSWHERE_Enterprise=%VSWHERE_bin%   -latest -products * -requires Microsoft.VisualStudio.Product.Enterprise   -property installationPath
+          for /f "usebackq tokens=*" %%A in (`%VSWHERE_Community%`)    do set VSPATH=%%A
+          for /f "usebackq tokens=*" %%A in (`%VSWHERE_Professional%`) do set VSPATH=%%A
+          for /f "usebackq tokens=*" %%A in (`%VSWHERE_Enterprise%`)   do set VSPATH=%%A
+          echo "%VSPATH%"
+          call "%VSPATH%\Common7\Tools\VsMSBuildCmd.bat"
+          cd "cheat-engine-master\Cheat Engine\DotNetDataCollector"
+          MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v142 /p:Platform="Win32"
+          MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v142 /p:Platform="x64"
+      shell: cmd
+
+    - name: Create Artifacts
+      run: |
+          echo Compressing Artifacts
+          set sevenZa=%CD%\7za.exe
+          cd "cheat-engine-master\Cheat Engine"
+          "%sevenZa%" a Artifacts\Binaries.7z           -sse -y -mm=lzma2 -mx=9 "bin\cheatengine-i386.exe" "bin\cheatengine-x86_64.exe" "bin\vehdebug*.dll" "bin\defines.lua" "bin\celua.txt" "bin\autorun\monoscript.lua" "bin\autorun\forms\MonoDataCollector.frm" "bin\autorun\ceshare*"
+          "%sevenZa%" a Artifacts\DebugSymbols.7z       -sse -y -mm=lzma2 -mx=9 "bin\cheatengine-i386.dbg" "bin\cheatengine-x86_64.dbg"
+          "%sevenZa%" a Artifacts\DataCollectorBin.7z   -sse -y -mm=lzma2 -mx=9 "bin\DotNetDataCollector*.exe" "bin\autorun\dlls\MonoDataCollector*.dll"
+          "%sevenZa%" a Artifacts\DataCollectorDebug.7z -sse -y -mm=lzma2 -mx=9 "bin\DotNetDataCollector*" "bin\autorun\dlls\MonoDataCollector*"
+      shell: cmd
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: Binaries
+        path: cheat-engine-master\Cheat Engine\Artifacts\Binaries.7z
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: DebugSymbols
+        path: cheat-engine-master\Cheat Engine\Artifacts\DebugSymbols.7z
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: DataCollectorBin
+        path: cheat-engine-master\Cheat Engine\Artifacts\DataCollectorBin.7z
+
+    - uses: actions/upload-artifact@master
+      with:
+        name: DataCollectorDebug
+        path: cheat-engine-master\Cheat Engine\Artifacts\DataCollectorDebug.7z
