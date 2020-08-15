@@ -12,19 +12,19 @@ jobs:
 
     - name: Lazarus Setup
       run: |
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLazarus/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.007 -o lazarus2.0.10_FPC3.2.0_7z.007
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.007 -o lazarus2.0.10_FPC3.2.0_7z.007
           7za x -y lazarus2.0.10_FPC3.2.0_7z.001
           cd lazarus2.0.10
           FPCandLAZARUSpaths.cmd
