@@ -73,8 +73,8 @@ jobs:
           echo "%VSPATH%"
           call "%VSPATH%\Common7\Tools\VsMSBuildCmd.bat"
           cd "cheat-engine-master\Cheat Engine\MonoDataCollector"
-          MSBuild MonoDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v141_xp /p:Platform="Win32"
-          MSBuild MonoDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v141_xp /p:Platform="x64"
+          MSBuild MonoDataCollector.sln /m /t:Build /p:Configuration=Release /p:Platform="Win32"
+          MSBuild MonoDataCollector.sln /m /t:Build /p:Configuration=Release /p:Platform="x64"
       shell: cmd
 
     - name: DotNetDataCollector
@@ -89,8 +89,8 @@ jobs:
           echo "%VSPATH%"
           call "%VSPATH%\Common7\Tools\VsMSBuildCmd.bat"
           cd "cheat-engine-master\Cheat Engine\DotNetDataCollector"
-          MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v142 /p:Platform="Win32"
-          MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:PlatformToolset=v142 /p:Platform="x64"
+          MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:Platform="Win32"
+          MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:Platform="x64"
       shell: cmd
 
     - name: Create Artifacts
