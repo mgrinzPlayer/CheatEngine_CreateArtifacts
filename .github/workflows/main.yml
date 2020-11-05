@@ -10,55 +10,9 @@ jobs:
 
     - uses: actions/checkout@master
 
-    - name: Lazarus Setup
-      run: |
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
-          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
-          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.007 -o lazarus2.0.10_FPC3.2.0_7z.007
-          7za x -y lazarus2.0.10_FPC3.2.0_7z.001
-          cd lazarus2.0.10
-          FPCandLAZARUSpaths.cmd
-      shell: cmd
-
     - name: Update CE Source Files
       run: |
-          svn checkout --force --non-interactive --trust-server-cert -r 4946 "https://github.com/cheat-engine/cheat-engine/trunk/" cheat-engine-master
-          svn up cheat-engine-master
-      shell: cmd
-
-    - name: Build 32bit
-      run: |
-          echo Compiling 32bit CE
-          set lazdir=%cd%\lazarus2.0.10
-          cd "cheat-engine-master\Cheat Engine"
-          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="Release 32-Bit" --os=win32 --cpu=i386   cheatengine.lpi
-      shell: cmd
-
-    - name: Build 64bit
-      run: |
-          echo Compiling 64bit CE
-          set lazdir=%cd%\lazarus2.0.10
-          cd "cheat-engine-master\Cheat Engine"
-          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="Release 64-Bit" --os=win64 --cpu=x86_64 cheatengine.lpi
-      shell: cmd
-
-    - name: VEH Debug
-      run: |
-          echo Compiling VEH Debug
-          set lazdir=%cd%\lazarus2.0.10
-          cd "cheat-engine-master\Cheat Engine\VEHDebug"
-          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="release 32" --os=win32 --cpu=i386   vehdebug.lpi
-          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="release 64" --os=win64 --cpu=x86_64 vehdebug.lpi
+          svn checkout --force --non-interactive --trust-server-cert "https://github.com/cheat-engine/cheat-engine/trunk/" cheat-engine-master
       shell: cmd
 
     - name: MonoDataCollector
@@ -91,6 +45,51 @@ jobs:
           cd "cheat-engine-master\Cheat Engine\DotNetDataCollector"
           MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:Platform="Win32"
           MSBuild DotNetDataCollector.sln /m /t:Build /p:Configuration=Release /p:Platform="x64"
+      shell: cmd
+
+    - name: Lazarus Setup
+      run: |
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
+          rem curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.001 -o lazarus2.0.10_FPC3.2.0_7z.001
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.002 -o lazarus2.0.10_FPC3.2.0_7z.002
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.003 -o lazarus2.0.10_FPC3.2.0_7z.003
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.004 -o lazarus2.0.10_FPC3.2.0_7z.004
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.005 -o lazarus2.0.10_FPC3.2.0_7z.005
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.006 -o lazarus2.0.10_FPC3.2.0_7z.006
+          curl -fSL https://github.com/mgrinzPlayer/precompiledLaz/raw/master/precompiledLazForGitHubActions/lazarus2.0.10_FPC3.2.0_7z.007 -o lazarus2.0.10_FPC3.2.0_7z.007
+          7za x -y lazarus2.0.10_FPC3.2.0_7z.001
+          cd lazarus2.0.10
+          FPCandLAZARUSpaths.cmd
+      shell: cmd
+
+    - name: Build 32bit
+      run: |
+          echo Compiling 32bit CE
+          set lazdir=%cd%\lazarus2.0.10
+          cd "cheat-engine-master\Cheat Engine"
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="Release 32-Bit" --os=win32 --cpu=i386   cheatengine.lpi
+      shell: cmd
+
+    - name: Build 64bit
+      run: |
+          echo Compiling 64bit CE
+          set lazdir=%cd%\lazarus2.0.10
+          cd "cheat-engine-master\Cheat Engine"
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="Release 64-Bit" --os=win64 --cpu=x86_64 cheatengine.lpi
+      shell: cmd
+
+    - name: VEH Debug
+      run: |
+          echo Compiling VEH Debug
+          set lazdir=%cd%\lazarus2.0.10
+          cd "cheat-engine-master\Cheat Engine\VEHDebug"
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="release 32" --os=win32 --cpu=i386   vehdebug.lpi
+          "%lazdir%\lazbuild.exe" --lazarusdir="%lazdir%" --build-mode="release 64" --os=win64 --cpu=x86_64 vehdebug.lpi
       shell: cmd
 
     - name: Create Artifacts
